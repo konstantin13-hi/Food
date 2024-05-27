@@ -35,10 +35,6 @@ export default function HomeMenu() {
                     <a className={""} href = "tel:+44444444444">+4444444444</a>
                 </section>
 
-                <footer className={"border-t p-8 text-gray-500 mt-8"}>
-                    &copy; 2024 all rights reserved
-                </footer>
-
 
 
 
