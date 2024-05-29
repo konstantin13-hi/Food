@@ -1,0 +1,2 @@
+https://yarnpkg.com/package?q=bcrypt&name=bcryptjs
+ya
