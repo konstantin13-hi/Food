@@ -24,7 +24,7 @@ export default function LoginPage(){
                 Login
             </h1>
             <form className={"max-w-xs mx-auto "} onSubmit={handleSubmit}>
-                <input type="text" placeholder={"email"} value={email}
+                <input type="email" placeholder={"email"} value={email}
                        disabled={logInProgress}
                        onChange={e => setEmail(e.target.value)}/>
                 <input type="password" placeholder={"password"} value={password}
@@ -32,7 +32,7 @@ export default function LoginPage(){
                        onChange={e => setPassword(e.target.value)}/>
                 <button type="submit"
                         disabled={logInProgress}>Log in</button>
-                <button onClick={()=>signIn('google',{callbackUrl:'/'})}>Login with google</button>
+                <button type={"button"} onClick={()=>signIn('google',{callbackUrl:'/'})}>Login with google</button>
                 <div className={"my-4 text-center text-gray-500"}>Login with provider</div>
 
 

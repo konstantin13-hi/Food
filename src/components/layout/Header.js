@@ -15,10 +15,10 @@ export default function Header(){
                 <Link href="">Contact</Link>
                   </nav>
             <nav className={"flex items-center gap-4 text-gray-500"}>
-                {status==="authenticated" &&(
+                {status==="authenticated" && (
                 <button className={""} onClick={()=>signOut()}>Log out</button>
                 )}
-                {status==="unauthenticated" &&(
+                {status==="unauthenticated" && (
                     <>
                     <Link href="/register">Register</Link>
                     <Link href="/login" className={"bg-primary rounded-full text-white px-8 py-4"}>Login</Link>
