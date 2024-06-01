@@ -6,15 +6,17 @@ import {signIn} from "next-auth/react";
 export default function LoginPage(){
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const[logInProgress, setLogInProgress] = useState(false);
+    const [loginInProgress, setLoginInProgress] = useState(false);
 
-
-   async function handleSubmit(ev){
+    async function handleFormSubmit(ev) {
         ev.preventDefault();
-       await signIn("credentials",{email:email,password:password,callbackUrl:'/'});
-       setLogInProgress(false);
+        setLoginInProgress(true);
 
+        await signIn('credentials', {email, password, callbackUrl: '/'});
+
+        setLoginInProgress(false);
     }
+
     return(
 
         <section>
@@ -23,16 +25,18 @@ export default function LoginPage(){
             <h1 className={"flex justify-center text-primary"}>
                 Login
             </h1>
-            <form className={"max-w-xs mx-auto "} onSubmit={handleSubmit}>
-                <input type="email" placeholder={"email"} value={email}
-                       disabled={logInProgress}
-                       onChange={e => setEmail(e.target.value)}/>
-                <input type="password" placeholder={"password"} value={password}
-                       disabled={logInProgress}
-                       onChange={e => setPassword(e.target.value)}/>
-                <button type="submit"
-                        disabled={logInProgress}>Log in</button>
-                <button type={"button"} onClick={()=>signIn('google',{callbackUrl:'/'})}>Login with google</button>
+            <form className={"max-w-xs mx-auto "} onSubmit={handleFormSubmit}>
+                <input type="email" name="email" placeholder="email" value={email}
+                       disabled={loginInProgress}
+                       onChange={ev => setEmail(ev.target.value)}/>
+                <input type="password" name="password" placeholder="password" value={password}
+                       disabled={loginInProgress}
+                       onChange={ev => setPassword(ev.target.value)}/>
+                <button disabled={loginInProgress} type="submit">Login</button>
+                <div className="my-4 text-center text-gray-500">
+                    or login with provider
+                </div>
+                <button type={"button"} onClick={() => signIn('google', {callbackUrl: '/'})}>Login with google</button>
                 <div className={"my-4 text-center text-gray-500"}>Login with provider</div>
 
 
