@@ -47,6 +47,17 @@ export default function ProfilePage() {
        }
 
     }
+    async function handleFileChange(ev){
+        const file = ev.target.files[0];
+        if(file.size > 0){
+            const data = new FormData();
+            data.set('file', file);
+            await fetch('/api/upload', {
+                method: 'POST',
+                body:data,
+                   })
+        }
+    }
 
     const userImage = session.data.user.image;
     return (
@@ -74,6 +85,10 @@ export default function ProfilePage() {
                     <div className={"bg-gray-300 p-4 rounded-lg"}>
                             <Image className={"rounded-lg"} src={userImage} width={64} height={64}
                                    alt={'avatar'}></Image>
+                        <label>
+                            <input type={"file"} className={"hidden"} onChange={handleFileChange}/>
+                            <span className={"block border rounded-lg text-center cursor-pointer"}>Edit</span>
+                        </label>
                             <button type={"button"}>Change avatar</button>
                         </div>
                     </div>
