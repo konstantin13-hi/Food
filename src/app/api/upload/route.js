@@ -38,7 +38,7 @@ export async function POST(req) {
         });
 
       const dAATA =  await s3Client.send(command);
-      console.log(dAATA);
+
 
         const link = `https://${bucket}.s3.amazonaws.com/${newFileName}`;
         return new Response(JSON.stringify({ link }), { status: 200, headers: { 'Content-Type': 'application/json' } });
