@@ -6,6 +6,8 @@ import {useEffect, useState} from "react";
 import InfoBox from "../../components/layout/InfoBox";
 import SuccessBox from "../../components/layout/SuccessBox";
 import toast, { Toaster } from 'react-hot-toast';
+import Link from "next/link";
+import UserTabs from "../../components/layout/UserTabs";
 
 
 export default function ProfilePage() {
@@ -21,6 +23,8 @@ export default function ProfilePage() {
     const [country, setCountry] = useState('');
     const [phone, setPhone] = useState('');
     const [streetAddress, setStreetAddress] = useState('');
+    const [isAdmin, setIsAdmin] = useState(false);
+    const [profileFetched, setProfileFetched] = useState(false);
 
     useEffect(() => {
         if (status === "authenticated") {
@@ -29,13 +33,17 @@ export default function ProfilePage() {
             fetch('/api/profile').then(
                 response => {
                     response.json().then(
+
                         data =>
                         {
+                            console.log(data)
                             setPhone(data.phone)
                             setStreetAddress(data.streetAddress)
                             setPostalCode(data.postalCode)
                             setCity(data.city)
                             setCountry(data.country)
+                            setIsAdmin(data.admin)
+                            setProfileFetched(true)
 
 
                         }
@@ -47,7 +55,7 @@ export default function ProfilePage() {
     }, [session, status]);
 
 
-    if (status === "loading") {
+    if (status === "loading" || !profileFetched) {
         return 'Loading ...';
     }
 
@@ -123,9 +131,9 @@ export default function ProfilePage() {
     const userImage = session.data.user.image;
     return (
         <section>
-            <h1 className={"flex justify-center text-primary"}>
-                profile
-            </h1>
+            <UserTabs isAdmin={isAdmin}/>
+
+
             <div className={"max-w-md mx-auto "}>
                 {/*{saved && (*/}
                 {/*    <SuccessBox>Saved!</SuccessBox>)*/}
