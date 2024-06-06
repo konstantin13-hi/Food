@@ -5,9 +5,10 @@ import Image from "next/image";
 import {useEffect, useState} from "react";
 import InfoBox from "../../components/layout/InfoBox";
 import SuccessBox from "../../components/layout/SuccessBox";
-import toast, { Toaster } from 'react-hot-toast';
+import toast, {Toaster} from 'react-hot-toast';
 import Link from "next/link";
 import UserTabs from "../../components/layout/UserTabs";
+import EditableImage from "../../components/layout/EditableImage";
 
 
 export default function ProfilePage() {
@@ -17,7 +18,7 @@ export default function ProfilePage() {
     const [isSaving, setIsSaving] = useState(false);
     const [image, setImage] = useState('');
     const [userName, setUserName] = useState('');
-    const[isUploading, setIsUploading] = useState(false);
+    const [isUploading, setIsUploading] = useState(false);
     const [postalCode, setPostalCode] = useState('');
     const [city, setCity] = useState('');
     const [country, setCountry] = useState('');
@@ -33,9 +34,7 @@ export default function ProfilePage() {
             fetch('/api/profile').then(
                 response => {
                     response.json().then(
-
-                        data =>
-                        {
+                        data => {
                             console.log(data)
                             setPhone(data.phone)
                             setStreetAddress(data.streetAddress)
@@ -70,13 +69,13 @@ export default function ProfilePage() {
                 method: 'PUT',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify({
-                name: userName ,
-                image:image,
-                streetAddress:streetAddress,
-                city:city,
-                country:country,
-                phone:phone,
-                postalCode:postalCode,
+                    name: userName,
+                    image: image,
+                    streetAddress: streetAddress,
+                    city: city,
+                    country: country,
+                    phone: phone,
+                    postalCode: postalCode,
                 }),
             });
             if (response.ok)
@@ -93,39 +92,6 @@ export default function ProfilePage() {
 
     }
 
-    async function handleFileChange(ev) {
-        const file = ev.target.files[0];
-        if (file.size > 0) {
-
-
-            const data = new FormData();
-            data.set('file', file);
-
-            const uploadPromise = new Promise(async (resolve, reject) => {
-                const response = await fetch('/api/upload', {
-                    method: 'POST',
-                    body: data,
-                })
-                if (response.ok) {
-                    const result = await response.json();
-                    const link = result.link;
-                    setImage(link);
-                    resolve();
-                }
-                else {
-                    reject();
-                }
-
-            });
-            await toast.promise(uploadPromise,{
-                loading: 'Uploading...',
-                success: 'Upload successful!',
-                error: 'Upload failed...',
-            });
-
-        }
-
-    }
 
 
     const userImage = session.data.user.image;
@@ -135,32 +101,11 @@ export default function ProfilePage() {
 
 
             <div className={"max-w-md mx-auto "}>
-                {/*{saved && (*/}
-                {/*    <SuccessBox>Saved!</SuccessBox>)*/}
-                {/*}*/}
-
-                {/*{isSaving && (*/}
-                {/*    <InfoBox>Saving</InfoBox>)}*/}
-
-                {/*{isUploading && (*/}
-                {/*    <InfoBox>Uploading</InfoBox>)}*/}
-
-
-
                 <div className={"flex gap-10"}>
-
-
                     <div className="flex justify-center">
                         <div className={"bg-gray-300 p-4 rounded-lg w-50 "}>
-                            {image && (
-                                <Image className={"rounded-lg mb-1"}  src={image} width={250} height={64}
-                                       alt={'avatar'}></Image>
-                            )}
+                            <EditableImage link={image} setLink={setImage}/>
 
-                            <label>
-                                <input type={"file"} className={"hidden"} onChange={handleFileChange}/>
-                                <span className={"block border rounded-lg text-center cursor-pointer"}>Edit</span>
-                            </label>
                         </div>
                     </div>
                     <form className={"grow"} onSubmit={handleProfileInfo}>
@@ -169,18 +114,18 @@ export default function ProfilePage() {
                                onChange={ev => setUserName(ev.target.value)}/>
                         <input type={"email"} disabled={true} placeholder={session?.data?.user?.email}/>
                         <input type={"tel"} placeholder={"Phone number"}
-                        value={phone} onChange={ev=>setPhone(ev.target.value)}/>
+                               value={phone} onChange={ev => setPhone(ev.target.value)}/>
                         <input type={"text"} placeholder={"Street address"}
-                        value={streetAddress} onChange={ev=>setStreetAddress(ev.target.value)}/>
+                               value={streetAddress} onChange={ev => setStreetAddress(ev.target.value)}/>
                         <div className={"flex gap-4"}>
                             <input type={"text"} placeholder={"City"}
-                            value={city} onChange={ev=>setCity(ev.target.value)}/>
+                                   value={city} onChange={ev => setCity(ev.target.value)}/>
                             <input type={"text"} placeholder={"Postal code"}
-                            value={postalCode} onChange={ev=>setPostalCode(ev.target.value)}/>
+                                   value={postalCode} onChange={ev => setPostalCode(ev.target.value)}/>
                         </div>
 
                         <input type={"text"} placeholder={"Country"}
-                        value={country} onChange={ev=>setCountry(ev.target.value)}/>
+                               value={country} onChange={ev => setCountry(ev.target.value)}/>
                         <button type={"submit"}>Save</button>
                     </form>
                 </div>

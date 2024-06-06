@@ -22,6 +22,9 @@ input[type="tel"]:disabled,
 input[type="text"]:disabled{
     @apply bg-gray-600 cursor-not-allowed;
 }
+label{
+    @apply text-gray-500 text-sm leading-tight;
+}
 
 
 button, .button{
