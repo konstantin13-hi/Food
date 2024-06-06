@@ -56,18 +56,17 @@ export default function CategoriesPage() {
 
 
     }
-
     if (profileLoading) {
-        return 'Loading user info...';
+        return 'Loading ...';
+    }
+    if(!profileData){
+        return 'Not a admin';
     }
 
-    if (!profileData.admin) {
-        return 'Not an admin';
-    }
 
     return (
         <section className="mt-8 max-w-lg mx-auto">
-            <UserTabs isAdmin={isAdmin}/>
+            <UserTabs isAdmin={profileData.admin}/>
             <form className={"mt-8"} onSubmit={handleCategorySubmit}>
                 <div className={"flex gap-2 items-end"}>
                     <div className={"grow"}>

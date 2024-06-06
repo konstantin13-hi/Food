@@ -11,7 +11,7 @@ export default function Header(){
     return (
         <header className={"flex items-center justify-between w-full"}>
             <nav className={"flex gap-4 items-center font-semibold text-gray-500"}>
-                <Link className={"text-primary font-semibold text-3xl"} href="/"> Pizza </Link>
+                <Link className={"text-primary font-semibold text-3xl"} href="/"> ₣◎◎Đ</Link>
                 <Link href="">Home</Link>
                 <Link href="">Menu</Link>
                 <Link href="">About</Link>
