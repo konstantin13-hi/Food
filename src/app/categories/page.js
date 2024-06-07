@@ -5,7 +5,7 @@ import toast from "react-hot-toast";
 import {useProfile} from "../../components/UserProfile";
 
 export default function CategoriesPage() {
-    const {loading:profileLoading, data:profileData} = useProfile();
+    const {loading: profileLoading, data: profileData} = useProfile();
     const [categoryName, setCategoryName] = useState('');
     const [categories, setCategories] = useState([]);
     const [editedCategory, setEditedCategory] = useState(null);
@@ -27,12 +27,12 @@ export default function CategoriesPage() {
     async function handleCategorySubmit(ev) {
         ev.preventDefault();
         const creationPromise = new Promise(async (resolve, reject) => {
-            const data = {name:categoryName};
-            if(editedCategory){
-                data._id=editedCategory._id;
+            const data = {name: categoryName};
+            if (editedCategory) {
+                data._id = editedCategory._id;
             }
-            const response =await fetch('/api/categories', {
-                method: editedCategory ? 'PUT':'POST',
+            const response = await fetch('/api/categories', {
+                method: editedCategory ? 'PUT' : 'POST',
                 headers: {'Content-type': 'application/json'},
                 body: JSON.stringify(data),
             });
@@ -48,18 +48,46 @@ export default function CategoriesPage() {
                 reject();
             }
         })
-        await toast.promise(creationPromise,{
-            loading: editedCategory ? 'Update category ':'Uploading...',
-            success: editedCategory ? "Category updated":'Upload successful!',
+        await toast.promise(creationPromise, {
+            loading: editedCategory ? 'Update category ' : 'Uploading...',
+            success: editedCategory ? "Category updated" : 'Upload successful!',
             error: 'Upload failed...',
         })
 
 
     }
+
+   async function handleDeleteCategory(_id) {
+        const promise = new Promise(async (resolve, reject) => {
+         const response = await fetch('/api/categories?_id=' + _id,{
+                method: 'DELETE',
+
+            })
+            if(response.ok){
+                resolve();
+                fetchCategories();
+            }
+            else {
+                reject();
+            }
+
+        });
+
+
+        await toast.promise(promise,{
+            loading:'Delete category...',
+            success:'Delete successful!',
+            error:'Delete failed...',
+        })
+
+
+
+    }
+
     if (profileLoading) {
         return 'Loading ...';
     }
-    if(!profileData){
+    if (!profileData) {
         return 'Not a admin';
     }
 
@@ -70,7 +98,7 @@ export default function CategoriesPage() {
             <form className={"mt-8"} onSubmit={handleCategorySubmit}>
                 <div className={"flex gap-2 items-end"}>
                     <div className={"grow"}>
-                        <label>{editedCategory ? "Update category":"New category"}
+                        <label>{editedCategory ? "Update category" : "New category"}
                             {editedCategory && (
                                 <>:<b>{editedCategory.name}</b></>
                             )}</label>
@@ -78,7 +106,7 @@ export default function CategoriesPage() {
                                onChange={ev => setCategoryName(ev.target.value)}/>
                     </div>
                     <div className={"pb-2"}>
-                        <button type={"submit"}>{editedCategory ? "Update":"Create"}</button>
+                        <button type={"submit"}>{editedCategory ? "Update" : "Create"}</button>
                     </div>
                 </div>
 
@@ -88,16 +116,29 @@ export default function CategoriesPage() {
                 <h2 className={"mt-8 text-sm text-gray-500 "}>Edit categories</h2>
                 {categories.length > 0 && (
                     categories.map((category, index) => (
-                        <button
-                            className={"bg-gray-200 rounded-lg p-2 px-4 flex gap-1 cursor-pointer mb-2"}
-                            key={category._id}
-                            onClick={()=>{setEditedCategory(category);
-                            setCategoryName(category.name);
-                            }
-                        }
+                        <div  className={"bg-gray-200 rounded-lg p-2 px-4 flex gap-1 mb-2"}
+                              key={category._id}
                         >
-                            <span>{category.name}</span>
-                        </button>
+                        <div
+                            className={"grow"}
+
+                        >
+                       {category.name}
+                        </div>
+                            <div className={"flex gap-1"}>
+                                <button type={"button"}
+                                     onClick={()=>{
+                                         setEditedCategory(category);
+                                         setCategoryName(category.name);
+                                     }}
+
+                                >Edit</button>
+                                <button type={"button"}
+                                        onClick={()=>handleDeleteCategory(category._id)}
+                                >Delete</button>
+                            </div>
+
+                        </div>
                     ))
                 )}
             </div>
