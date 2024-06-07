@@ -37,7 +37,7 @@ export default function MenuItemPriceProps({name,addLabel,props,setProps}){
                     </>
                 )}
                 <span>{name}</span>
-                <span>({props?.length})</span>
+                <span>({props?.length}</span>
 
             </button>
             <div className={isOpen ? 'block' : 'hidden'}>
