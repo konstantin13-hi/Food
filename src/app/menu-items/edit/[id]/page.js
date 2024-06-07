@@ -7,6 +7,7 @@ import Right from "../../../../components/icons/Right";
 import toast from "react-hot-toast";
 import {redirect, useParams} from "next/navigation";
 import MenuItemForm from "../../../../components/layout/MenuItemForm";
+import DeleteButton from "../../../../components/DeleteButton";
 
 
 export default function EditMenuItemPage(){
@@ -106,9 +107,8 @@ export default function EditMenuItemPage(){
             <MenuItemForm menuItem={menuItem} onSubmit={handleFormSubmit}></MenuItemForm>
             <div className={"max-w-md mx-auto mt-4"}>
                 <div className={"max-w-xs ml-auto pl-4"}>
-                    <button
-                        onClick={handleDeleteClick}
-                    >Delete this menu item</button>
+                    <DeleteButton label={"Delete this item"} onClick={handleDeleteClick}/>
+
                 </div>
             </div>
 

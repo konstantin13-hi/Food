@@ -3,6 +3,7 @@ import {useEffect, useState} from "react";
 import UserTabs from "../../components/layout/UserTabs";
 import toast from "react-hot-toast";
 import {useProfile} from "../../components/UserProfile";
+import DeleteButton from "../../components/DeleteButton";
 
 export default function CategoriesPage() {
     const {loading: profileLoading, data: profileData} = useProfile();
@@ -138,9 +139,10 @@ export default function CategoriesPage() {
                                      }}
 
                                 >Edit</button>
-                                <button type={"button"}
-                                        onClick={()=>handleDeleteCategory(category._id)}
-                                >Delete</button>
+                                <DeleteButton label={'Delete'} onClick={()=>handleDeleteCategory(category._id)}/>
+                                {/*<button type={"button"}*/}
+                                {/*        onClick={()=>handleDeleteCategory(category._id)}*/}
+                                {/*>Delete</button>*/}
                             </div>
 
                         </div>
