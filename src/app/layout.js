@@ -14,7 +14,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
+    <html lang="en" className={"scroll-smooth"}>
       <body className={roboto.className} suppressHydrationWarning={true}>
       <main className={"max-w-6xl mx-auto border px-4"}>
           <AppProvider>

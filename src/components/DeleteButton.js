@@ -13,8 +13,8 @@ export default function DeleteButton({label,onDelete}) {
                             Cancel
                         </button>
                         <button
-                            onClick={() => {
-                                onDelete();
+                            onClick={(ev) => {
+                                onDelete(ev);
                                 setShowConfirm(false);
                             }}
                             type="button"

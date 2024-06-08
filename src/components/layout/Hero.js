@@ -8,10 +8,10 @@ export default function Hero() {
 
 
                 <h1 className={"text-4xl font-semibold"}>
-                    Pizza is better than your Girlfriend
+                   Food is better than your Girlfriend
                 </h1>
 
-                <p className={"text-gray-500 my-4"}>Enjoy pizza and have fun</p>
+                <p className={"text-gray-500 my-4"}>Enjoy food and have fun</p>
 
                 <div className={"flex gap-4"}>
                     <button className={"bg-primary flex gap-2  text-white px-4 py-2 rounded-full"}>Order now
@@ -23,10 +23,10 @@ export default function Hero() {
                 </div>
             </div>
 
-            <div className={"relative"}>
-                <Image src={"/pizza.png"} alt={"pizza"} layout={'fill'}
-                objectFit={"contain"}></Image>
-            </div>
+            {/*<div className={"relative"}>*/}
+            {/*    <Image src={"/pizza.png"} alt={"pizza"} layout={'fill'}*/}
+            {/*    objectFit={"contain"}></Image>*/}
+            {/*</div>*/}
 
 
 

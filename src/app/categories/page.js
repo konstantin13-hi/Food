@@ -139,7 +139,7 @@ export default function CategoriesPage() {
                                      }}
 
                                 >Edit</button>
-                                <DeleteButton label={'Delete'} onClick={()=>handleDeleteCategory(category._id)}/>
+                                <DeleteButton label={'Delete'} onDelete={()=>handleDeleteCategory(category._id)}/>
                                 {/*<button type={"button"}*/}
                                 {/*        onClick={()=>handleDeleteCategory(category._id)}*/}
                                 {/*>Delete</button>*/}
