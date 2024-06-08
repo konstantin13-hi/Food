@@ -9,6 +9,7 @@ import toast, {Toaster} from 'react-hot-toast';
 import Link from "next/link";
 import UserTabs from "../../components/layout/UserTabs";
 import EditableImage from "../../components/layout/EditableImage";
+import UserForm from "../../components/layout/UserForm";
 
 
 export default function ProfilePage() {
@@ -26,7 +27,7 @@ export default function ProfilePage() {
     const [streetAddress, setStreetAddress] = useState('');
     const [isAdmin, setIsAdmin] = useState(false);
     const [profileFetched, setProfileFetched] = useState(false);
-
+   const [user, setUser] = useState(null);
     useEffect(() => {
         if (status === "authenticated") {
             setUserName(session.data.user.name);
@@ -35,16 +36,9 @@ export default function ProfilePage() {
                 response => {
                     response.json().then(
                         data => {
-                            console.log(data)
-                            setPhone(data.phone)
-                            setStreetAddress(data.streetAddress)
-                            setPostalCode(data.postalCode)
-                            setCity(data.city)
-                            setCountry(data.country)
-                            setIsAdmin(data.admin)
-                            setProfileFetched(true)
-
-
+                            setUser(data);
+                            setIsAdmin(data.admin);
+                            setProfileFetched(true);
                         }
                     )
                 }
@@ -53,30 +47,13 @@ export default function ProfilePage() {
 
     }, [session, status]);
 
-
-    if (status === "loading" || !profileFetched) {
-        return 'Loading ...';
-    }
-
-    if (status === "unauthenticated") {
-        return redirect("/login");
-    }
-
-    async function handleProfileInfo(ev) {
+    async function handleProfileInfo(ev,data) {
         ev.preventDefault();
         const savingPromise = new Promise(async (resolve, reject) => {
             const response = await fetch('/api/profile', {
                 method: 'PUT',
                 headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({
-                    name: userName,
-                    image: image,
-                    streetAddress: streetAddress,
-                    city: city,
-                    country: country,
-                    phone: phone,
-                    postalCode: postalCode,
-                }),
+                body: JSON.stringify(data),
             });
             if (response.ok)
                 resolve()
@@ -93,6 +70,17 @@ export default function ProfilePage() {
     }
 
 
+    if (status === "loading" || !profileFetched) {
+        return 'Loading ...';
+    }
+
+    if (status === "unauthenticated") {
+        return redirect("/login");
+    }
+
+
+
+
 
     const userImage = session.data.user.image;
     return (
@@ -101,34 +89,8 @@ export default function ProfilePage() {
 
 
             <div className={"max-w-md mx-auto "}>
-                <div className={"flex gap-10"}>
-                    <div className="flex justify-center">
-                        <div className={"bg-gray-300 p-4 rounded-lg w-50 "}>
-                            <EditableImage link={image} setLink={setImage}/>
+                <UserForm user={user} onSave={handleProfileInfo} />
 
-                        </div>
-                    </div>
-                    <form className={"grow"} onSubmit={handleProfileInfo}>
-
-                        <input type={"text"} placeholder={"First Name"} value={userName}
-                               onChange={ev => setUserName(ev.target.value)}/>
-                        <input type={"email"} disabled={true} placeholder={session?.data?.user?.email}/>
-                        <input type={"tel"} placeholder={"Phone number"}
-                               value={phone} onChange={ev => setPhone(ev.target.value)}/>
-                        <input type={"text"} placeholder={"Street address"}
-                               value={streetAddress} onChange={ev => setStreetAddress(ev.target.value)}/>
-                        <div className={"flex gap-4"}>
-                            <input type={"text"} placeholder={"City"}
-                                   value={city} onChange={ev => setCity(ev.target.value)}/>
-                            <input type={"text"} placeholder={"Postal code"}
-                                   value={postalCode} onChange={ev => setPostalCode(ev.target.value)}/>
-                        </div>
-
-                        <input type={"text"} placeholder={"Country"}
-                               value={country} onChange={ev => setCountry(ev.target.value)}/>
-                        <button type={"submit"}>Save</button>
-                    </form>
-                </div>
             </div>
         </section>
     )

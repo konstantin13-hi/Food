@@ -1,6 +1,7 @@
+'use client'
 import {useEffect, useState} from "react";
 
-export function useProfile() {
+export  function useProfile() {
     const [data, setData] = useState(false);
     const [loading, setLoading] = useState(true);
     useEffect(() => {
