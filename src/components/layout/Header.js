@@ -3,6 +3,7 @@ import Link from "next/link";
 import {signOut, useSession} from "next-auth/react";
 import {useContext} from "react";
 import {CartContext} from "../../components/AppContext";
+import ShoppingCart from "../../components/icons/ShoppingCart";
 
 export default function Header(){
     const session = useSession();
@@ -33,12 +34,14 @@ export default function Header(){
                     <Link href="/login" className={"bg-primary rounded-full text-white px-8 py-4"}>Login</Link>
                     </>
             )}
-                {
-                    cartProducts.length > 0 && (
-                        <Link href={"/cart"}>({cartProducts.length})</Link>
-                    )
-                }
-
+                <Link href={'/cart'} className="relative">
+                    <ShoppingCart />
+                    {cartProducts?.length > 0 && (
+                        <span className="absolute -top-2 -right-4 bg-primary text-white text-xs py-1 px-1 rounded-full leading-3">
+            {cartProducts.length}
+          </span>
+                    )}
+                </Link>
 
 
             </nav>
