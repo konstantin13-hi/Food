@@ -117,7 +117,7 @@ export default function CartPage() {
                 </div>
                 <div className="bg-gray-100 p-4 rounded-lg">
                     <h2>Checkout</h2>
-                    <form>
+                    <form onSubmit={proceedToCheckout}>
                         <label>
                             Address
                         </label>
