@@ -100,7 +100,9 @@ export default function MenuItem(menuItem) {
                                     ))}
                                 </div>
                             )}
-                            <button className={"primary"} type={"button"}>
+                            <button className={"primary"} type={"button"}
+                             onClick={()=>handleAddCartButtonClick()}>
+
                                 Add to cart ${selectedPrice}
                             </button>
                             <button
