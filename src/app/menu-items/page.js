@@ -43,25 +43,43 @@ export default function MenuItemsPage() {
             <div>
 
                 <h2 className={"text-sm text-gray-500 mt-8"}></h2>
+                {/*<div className="grid grid-cols-3 gap-2">*/}
+                {/*    {menuItems.length > 0 && (*/}
+                {/*        menuItems.map(menuItem => (*/}
+                {/*            <Link href={"/menu-items/edit/" + menuItem._id} className={"button mb-1"}*/}
+                {/*                  key={menuItem._id}>*/}
+                {/*                <div className="relative">*/}
+                {/*                    <Image*/}
+                {/*                        className="rounded-md"*/}
+                {/*                        src={menuItem.image} alt={''} width={200} height={200}/>*/}
+                {/*                </div>*/}
+                {/*                <div className="text-center">*/}
+                {/*                    {menuItem.name}*/}
+                {/*                </div>*/}
+                {/*            </Link>*/}
+
+                {/*        ))*/}
+                {/*    )*/}
+
+                {/*    }*/}
+                {/*</div>*/}
                 <div className="grid grid-cols-3 gap-2">
-                    {menuItems.length > 0 && (
-                        menuItems.map(menuItem => (
-                            <Link href={"/menu-items/edit/" + menuItem._id} className={"button mb-1"}
-                                  key={menuItem._id}>
-                                <div className="relative">
-                                    <Image
-                                        className="rounded-md"
-                                        src={menuItem.image} alt={''} width={200} height={200}/>
-                                </div>
-                                <div className="text-center">
-                                    {menuItem.name}
-                                </div>
-                            </Link>
-
-                        ))
-                    )
-
-                    }
+                    {menuItems?.length > 0 && menuItems.map(item => (
+                        <Link
+                            key={item._id}
+                            href={'/menu-items/edit/' + item._id}
+                            className="bg-gray-200 rounded-lg p-4"
+                        >
+                            <div className="relative">
+                                <Image
+                                    className="rounded-md"
+                                    src={item.image} alt={''} width={200} height={200}/>
+                            </div>
+                            <div className="text-center">
+                                {item.name}
+                            </div>
+                        </Link>
+                    ))}
                 </div>
             </div>
 

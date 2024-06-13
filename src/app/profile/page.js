@@ -15,16 +15,9 @@ import UserForm from "../../components/layout/UserForm";
 export default function ProfilePage() {
     const session = useSession();
     const {status} = session;
-    const [saved, setSaved] = useState(false);
-    const [isSaving, setIsSaving] = useState(false);
+
     const [image, setImage] = useState('');
     const [userName, setUserName] = useState('');
-    const [isUploading, setIsUploading] = useState(false);
-    const [postalCode, setPostalCode] = useState('');
-    const [city, setCity] = useState('');
-    const [country, setCountry] = useState('');
-    const [phone, setPhone] = useState('');
-    const [streetAddress, setStreetAddress] = useState('');
     const [isAdmin, setIsAdmin] = useState(false);
     const [profileFetched, setProfileFetched] = useState(false);
    const [user, setUser] = useState(null);

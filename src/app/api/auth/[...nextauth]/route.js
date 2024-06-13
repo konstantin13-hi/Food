@@ -10,7 +10,7 @@ import {UserInfo} from "../../models/UserInfo";
 
 export const authOptions = {
     secret: process.env.SECRET,
-    adapter: MongoDBAdapter(clientPromise),
+    // adapter: MongoDBAdapter(clientPromise),
 
     providers: [
         GoogleProvider({
@@ -23,21 +23,26 @@ export const authOptions = {
             id:'credentials',
 
             credentials: {
-                username: { label: "email", type: "email", placeholder: "example@example.com" },
+                email: { label: "email", type: "email", placeholder: "example@example.com" },
                 password: { label: "Password", type: "password" }
             },
             async authorize(credentials, req) {
+                console.log(credentials)
                 const email = credentials?.email;
                 const password = credentials?.password;
-                console.log(credentials)
+
                 console.log(email)
                 await mongoose.connect(process.env.MONGODB_URI);
                 const user = await User.findOne({ email });
                 const passwordMatch = user && await bcrypt.compareSync(password, user.password);
                 console.log(passwordMatch);
                 if(passwordMatch) {
+                    console.log("мы тут тут тут ттут уту тту");
+                    console.log(user);
                     return user;
+
                 }
+
                 return null
             }
         })

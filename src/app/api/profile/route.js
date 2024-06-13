@@ -35,8 +35,6 @@ export async function GET(req){
 
 
    const _id = url.searchParams.get('_id');
-    console.log("GET REQ");
-    console.log(_id);
     let filterUser = {};
     if (_id) {
         filterUser = {_id};

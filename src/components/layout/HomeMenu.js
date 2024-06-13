@@ -4,13 +4,13 @@ import SectionHeaders from "./SectionHeaders"
 import {useEffect, useState} from "react";
 
 export default function HomeMenu() {
-   const [bestSellers, setBestSellers] = useState([])
+    const [bestSellers, setBestSellers] = useState([])
 
     useEffect(() => {
         fetch('/api/menu-items').then(
             res => res.json().then(
                 menuItems => {
-                   setBestSellers(menuItems.slice(-3));
+                    setBestSellers(menuItems.slice(-3));
 
                 }
             )
@@ -37,20 +37,26 @@ export default function HomeMenu() {
                 <SectionHeaders
                     subHeader={"Our story"}
                     mainHeader={"About us"}/>
-                <div className={"max-w-2xl"}>
-                    <p className={"max-w-2xl mx-auto mt-4 text-gray-500"}>
-                        lorem ipsum dolor sit amet, consectetur adipiscing elit
+                <div className="text-gray-500 max-w-md mx-auto mt-4 flex flex-col gap-4">
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magni minima odit recusandae. Illum
+                        ipsa non repudiandae? Eum ipsam iste quos suscipit tempora? Aperiam esse fugiat inventore
+                        laboriosam officiis quam rem!
                     </p>
-                    <p> lorem ipsum </p>
-                </div>
+                    <p>At consectetur delectus ducimus est facere iure molestias obcaecati quaerat vitae voluptate?
+                        Aspernatur dolor explicabo iste minus molestiae pariatur provident quibusdam saepe?</p>
+                    <p>Laborum molestias neque nulla obcaecati odio quia quod reprehenderit sit vitae voluptates? Eos,
+                        tenetur.</p>
 
+            </div>
 
-            </section>
-            <section className={"text-center"} id={"contact"}>
-                <SectionHeaders subHeader={"Dont hesitate"} mainHeader={"Contact us"}/>
-                <a className={""} href="tel:+44444444444">+4444444444</a>
-            </section>
 
         </section>
-    )
+    <section className={"text-center"} id={"contact"}>
+        <SectionHeaders subHeader={"Dont hesitate"} mainHeader={"Contact us"}/>
+        <a className={""} href="tel:+44444444444">+4444444444</a>
+    </section>
+
+</section>
+)
 }
